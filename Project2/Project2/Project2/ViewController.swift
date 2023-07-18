@@ -31,6 +31,11 @@ class ViewController: UIViewController {
         buttonTwo.layer.borderColor = UIColor.lightGray.cgColor
         ButtonThree.layer.borderColor = UIColor.lightGray.cgColor
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(infoTapped))
+        
+        
+        
+        
         askQuestion()
     }
     
@@ -49,7 +54,7 @@ class ViewController: UIViewController {
         ButtonThree.setImage(UIImage(named: contries[2]), for: .normal)
         
         
-        var contry = contries[correctAnswer].uppercased()
+        let contry = contries[correctAnswer].uppercased()
         title = "\(contry)(\(buttonTappedCount))"
         
         let finalAC = UIAlertController(title: "Result", message: "You answered 10 questions and got \(score) correct!", preferredStyle: .alert)
@@ -86,10 +91,23 @@ class ViewController: UIViewController {
             ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
             present(ac, animated: true)
         }
+    }
+    
+    
+    @objc func infoTapped(){
+        
+        let ac = UIAlertController(title: title, message: "Your current score is \(score)", preferredStyle: .actionSheet)
+        
+        ac.addAction(UIAlertAction(title: "Back", style: .default, handler: { [weak self] _ in
+               self?.dismiss(animated: true, completion: nil)
+           }))
         
         
+        present(ac,animated:true)
         
     }
+    
+    
     
 
 }
