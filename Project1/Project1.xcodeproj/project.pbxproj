@@ -23,6 +23,7 @@
 		A41C67A72A6543AA003446A8 /* nssl0043.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A41C679D2A6543AA003446A8 /* nssl0043.jpg */; };
 		A41C67A82A6543AA003446A8 /* nssl0033.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A41C679E2A6543AA003446A8 /* nssl0033.jpg */; };
 		A41C67A92A6543AA003446A8 /* nssl0034.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A41C679F2A6543AA003446A8 /* nssl0034.jpg */; };
+		A41C67AB2A655868003446A8 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41C67AA2A655868003446A8 /* DetailVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		A41C679D2A6543AA003446A8 /* nssl0043.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nssl0043.jpg; sourceTree = "<group>"; };
 		A41C679E2A6543AA003446A8 /* nssl0033.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nssl0033.jpg; sourceTree = "<group>"; };
 		A41C679F2A6543AA003446A8 /* nssl0034.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nssl0034.jpg; sourceTree = "<group>"; };
+		A41C67AA2A655868003446A8 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 				A41C676C2A6540E8003446A8 /* AppDelegate.swift */,
 				A41C676E2A6540E8003446A8 /* SceneDelegate.swift */,
 				A41C67702A6540E8003446A8 /* ViewController.swift */,
+				A41C67AA2A655868003446A8 /* DetailVC.swift */,
 				A41C67722A6540E8003446A8 /* Main.storyboard */,
 				A41C67752A6540ED003446A8 /* Assets.xcassets */,
 				A41C67772A6540ED003446A8 /* LaunchScreen.storyboard */,
@@ -91,16 +94,16 @@
 		A41C67952A6543AA003446A8 /* Content */ = {
 			isa = PBXGroup;
 			children = (
-				A41C67962A6543AA003446A8 /* nssl0049.jpg */,
-				A41C67972A6543AA003446A8 /* nssl0046.jpg */,
-				A41C67982A6543AA003446A8 /* nssl0091.jpg */,
-				A41C67992A6543AA003446A8 /* nssl0045.jpg */,
-				A41C679A2A6543AA003446A8 /* nssl0051.jpg */,
+				A41C679E2A6543AA003446A8 /* nssl0033.jpg */,
+				A41C679F2A6543AA003446A8 /* nssl0034.jpg */,
 				A41C679B2A6543AA003446A8 /* nssl0041.jpg */,
 				A41C679C2A6543AA003446A8 /* nssl0042.jpg */,
 				A41C679D2A6543AA003446A8 /* nssl0043.jpg */,
-				A41C679E2A6543AA003446A8 /* nssl0033.jpg */,
-				A41C679F2A6543AA003446A8 /* nssl0034.jpg */,
+				A41C67992A6543AA003446A8 /* nssl0045.jpg */,
+				A41C67972A6543AA003446A8 /* nssl0046.jpg */,
+				A41C67962A6543AA003446A8 /* nssl0049.jpg */,
+				A41C679A2A6543AA003446A8 /* nssl0051.jpg */,
+				A41C67982A6543AA003446A8 /* nssl0091.jpg */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A41C67712A6540E8003446A8 /* ViewController.swift in Sources */,
+				A41C67AB2A655868003446A8 /* DetailVC.swift in Sources */,
 				A41C676D2A6540E8003446A8 /* AppDelegate.swift in Sources */,
 				A41C676F2A6540E8003446A8 /* SceneDelegate.swift in Sources */,
 			);

@@ -14,6 +14,8 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Storm Viewer"//Set title
+        navigationController?.navigationBar.prefersLargeTitles = true //Set title as large
         
         let fm = FileManager.default //Declare the file manager
         let path = Bundle.main.resourcePath! // Declare path
@@ -25,10 +27,42 @@ class ViewController: UITableViewController {
             }
         }
         
-        print(pictures)
+        // Use the sorted() sequence to sort the pictures array of elements(CHALLANGE)
+        pictures = pictures.sorted()
     }
     
+    // Function that triggers the segue to present DetailVC
+        func showDetail() {
+            performSegue(withIdentifier: "ShowDetailVC", sender: nil)
+        }
 
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == "ShowDetailVC" {
+                if let destinationVC = segue.destination as? DetailVC {
+                    destinationVC.pictures = self.pictures
+                }
+            }
+        }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return pictures.count //Return the amount of rows of the picture count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Picture", for: indexPath)
+        
+        cell.textLabel?.text = pictures[indexPath.row]
+        
+        return cell//Return in cell the text of the image
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailVC{
+            vc.selectedImage = pictures[indexPath.row]
+            navigationController?.pushViewController(vc, animated: true)
+        }//When selecting row initiate DetailVC with image
+    }
 
 }
 
