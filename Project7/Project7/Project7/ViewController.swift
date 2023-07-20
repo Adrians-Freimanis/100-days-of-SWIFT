@@ -10,12 +10,16 @@ import UIKit
 class ViewController: UITableViewController {
     
     var petitions = [Petition]()
-
+    
+    var filteredPetitions = [Petition]()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(apiInfo))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(filterPetitions))
         
         fetchPetitions()
     }
@@ -43,15 +47,15 @@ class ViewController: UITableViewController {
         if let url = URL(string: urlString) {
             let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
                 guard let self = self else { return }
-
-                if let error = error {
+                
+                if error != nil {
                     // Show the error alert when there is an error
-                                   DispatchQueue.main.async {
-                                       self.showError()
-                                   }
+                    DispatchQueue.main.async {
+                        self.showError()
+                    }
                     return
                 }
-
+                
                 if let data = data {
                     self.parse(json: data)
                 }
@@ -83,29 +87,56 @@ class ViewController: UITableViewController {
     }
     
     
-    
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return petitions.count
+    @objc func filterPetitions(){
+        
+        let ac = UIAlertController(title: "Search content", message: nil, preferredStyle: .alert)
+        
+        ac.addTextField{(textField) in
+            textField.placeholder = "Search"
+        }
+        
+        let pushAction = UIAlertAction(title: "OK", style: .default){ [weak self] _ in
+            if let textField = ac.textFields?.first{
+                if let inputText = textField.text{
+                    print(inputText)
+                }
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        
+        ac.addAction(pushAction)
+        ac.addAction(cancelAction)
+        present(ac, animated: true){
+            ac.textFields?.first?.becomeFirstResponder()
+        }
+    }
+        
+        
+        
+        override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return petitions.count
+        }
+        
+        override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+            
+            let petition = petitions[indexPath.row]
+            
+            cell.textLabel?.text = petition.title
+            cell.detailTextLabel?.text = petition.body
+            
+            return cell
+        }
+        
+        override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            let vc = DetailVC()
+            vc.detailItem = petitions[indexPath.row]
+            navigationController?.pushViewController(vc, animated: true)
+        }
+        
+        
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        
-        let petition = petitions[indexPath.row]
-        
-        cell.textLabel?.text = petition.title
-        cell.detailTextLabel?.text = petition.body
-        
-        return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = DetailVC()
-        vc.detailItem = petitions[indexPath.row]
-        navigationController?.pushViewController(vc, animated: true)
-    }
-
-
-}
 
