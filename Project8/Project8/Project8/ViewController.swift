@@ -70,12 +70,14 @@ class ViewController: UIViewController {
         currentAnswer.isUserInteractionEnabled = false
         view.addSubview(currentAnswer)
         
-        
+
         
         let submit = UIButton(type: .system)
         submit.translatesAutoresizingMaskIntoConstraints = false
         submit.setTitle("SUBMIT", for: .normal)
         submit.addTarget(self, action: #selector(submitTapped), for: .touchUpInside)
+        submit.layer.borderWidth = 1
+        submit.layer.borderColor = UIColor.lightGray.cgColor
         view.addSubview(submit)
         
         
@@ -83,6 +85,8 @@ class ViewController: UIViewController {
         clear.translatesAutoresizingMaskIntoConstraints = false
         clear.setTitle("CLEAR", for: .normal)
         clear.addTarget(self, action: #selector(clearTapped), for: .touchUpInside)
+        clear.layer.borderWidth = 1
+        clear.layer.borderColor = UIColor.lightGray.cgColor
         view.addSubview(clear)
         
         
@@ -192,6 +196,19 @@ class ViewController: UIViewController {
                 present(ac, animated: true)
             }
             
+        }
+        else{
+
+            let ac = UIAlertController(title: "Wrong!", message: "You got the answer wrong!", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Let's go!", style: .default))
+            present(ac, animated: true)
+            currentAnswer.text = ""
+            for button in activatedButtons{
+                button.isHidden = false
+            }
+            
+            activatedButtons.removeAll()
+            score -= 1
         }
     }
     
