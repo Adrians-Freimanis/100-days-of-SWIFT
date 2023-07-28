@@ -14,6 +14,7 @@
 		A4098C4C2A7384E800BADA10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4098C4B2A7384E800BADA10 /* Assets.xcassets */; };
 		A4098C4F2A7384E800BADA10 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4098C4D2A7384E800BADA10 /* LaunchScreen.storyboard */; };
 		A4098C572A73865A00BADA10 /* Capital.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4098C562A73865A00BADA10 /* Capital.swift */; };
+		A419DC642A73E3C300C8D004 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A419DC632A73E3C300C8D004 /* WebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		A4098C4E2A7384E800BADA10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A4098C502A7384E800BADA10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A4098C562A73865A00BADA10 /* Capital.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Capital.swift; sourceTree = "<group>"; };
+		A419DC632A73E3C300C8D004 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,11 +63,12 @@
 				A4098C422A7384E500BADA10 /* AppDelegate.swift */,
 				A4098C442A7384E500BADA10 /* SceneDelegate.swift */,
 				A4098C462A7384E500BADA10 /* ViewController.swift */,
+				A419DC632A73E3C300C8D004 /* WebViewController.swift */,
+				A4098C562A73865A00BADA10 /* Capital.swift */,
 				A4098C482A7384E500BADA10 /* Main.storyboard */,
 				A4098C4B2A7384E800BADA10 /* Assets.xcassets */,
 				A4098C4D2A7384E800BADA10 /* LaunchScreen.storyboard */,
 				A4098C502A7384E800BADA10 /* Info.plist */,
-				A4098C562A73865A00BADA10 /* Capital.swift */,
 			);
 			path = Project16;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 				A4098C472A7384E500BADA10 /* ViewController.swift in Sources */,
 				A4098C432A7384E500BADA10 /* AppDelegate.swift in Sources */,
 				A4098C572A73865A00BADA10 /* Capital.swift in Sources */,
+				A419DC642A73E3C300C8D004 /* WebViewController.swift in Sources */,
 				A4098C452A7384E500BADA10 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
