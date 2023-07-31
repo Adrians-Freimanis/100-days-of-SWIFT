@@ -27,6 +27,8 @@ class DetailVC: UIViewController {
             if picture == selectedImage {
                 picturePosition = index // Assign the index to picturePosition
                 break // Exit the loop early once we find the selectedImage
+            }else{
+                assert(selectedImage == picture, "There is no picture")
             }
         }
         
@@ -50,6 +52,7 @@ class DetailVC: UIViewController {
         if let imageToLoad = selectedImage{ //Set the name of the image as selected image
             imageView.image = UIImage(named: imageToLoad)
         }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {//show navigation controller on tap of screen
