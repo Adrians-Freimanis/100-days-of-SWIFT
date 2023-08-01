@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import UserNotifications
+import UserNotificationsUI
 
 class ViewController: UIViewController {
 
@@ -39,6 +41,30 @@ class ViewController: UIViewController {
         askQuestion()
     }
     
+    
+    func scheduleReminder() {
+        // Create the notification content
+        let content = UNMutableNotificationContent()
+        content.title = "Come back and play!"
+        content.body = "You've completed 10 questions. Play again to improve your score!"
+        content.sound = UNNotificationSound.default
+
+        // Create the notification trigger for 1 week (7 days) from now
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 7 * 24 * 60 * 60, repeats: false)
+
+        // Create the notification request
+        let request = UNNotificationRequest(identifier: "reminderNotification", content: content, trigger: trigger)
+
+        // Schedule the notification
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Error scheduling notification: \(error.localizedDescription)")
+            } else {
+                print("Reminder notification scheduled successfully.")
+            }
+        }
+    }
+    
     func resetGame(action: UIAlertAction! = nil){
         score = 0
         buttonTappedCount = 0
@@ -61,6 +87,7 @@ class ViewController: UIViewController {
         finalAC.addAction(UIAlertAction(title: "reset", style: .default, handler: resetGame))
         
         if(buttonTappedCount == 10){
+            scheduleReminder()
             present(finalAC, animated: true)
         }
     }
