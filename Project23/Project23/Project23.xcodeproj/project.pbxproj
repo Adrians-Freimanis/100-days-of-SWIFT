@@ -31,6 +31,8 @@
 		A47D25E22A792D4C00ECFD8D /* swoosh3.caf in Resources */ = {isa = PBXBuildFile; fileRef = A47D25D12A792D4C00ECFD8D /* swoosh3.caf */; };
 		A47D25E32A792D4C00ECFD8D /* swoosh2.caf in Resources */ = {isa = PBXBuildFile; fileRef = A47D25D22A792D4C00ECFD8D /* swoosh2.caf */; };
 		A47D25E42A792D4C00ECFD8D /* swoosh1.caf in Resources */ = {isa = PBXBuildFile; fileRef = A47D25D32A792D4C00ECFD8D /* swoosh1.caf */; };
+		A48EA4C72A7A2A40007F2B41 /* gameOver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A48EA4C62A7A2A40007F2B41 /* gameOver@2x.png */; };
+		A48EA4C92A7A2A60007F2B41 /* gameOver.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A48EA4C82A7A2A60007F2B41 /* gameOver.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +61,8 @@
 		A47D25D12A792D4C00ECFD8D /* swoosh3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = swoosh3.caf; sourceTree = "<group>"; };
 		A47D25D22A792D4C00ECFD8D /* swoosh2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = swoosh2.caf; sourceTree = "<group>"; };
 		A47D25D32A792D4C00ECFD8D /* swoosh1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = swoosh1.caf; sourceTree = "<group>"; };
+		A48EA4C62A7A2A40007F2B41 /* gameOver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gameOver@2x.png"; sourceTree = "<group>"; };
+		A48EA4C82A7A2A60007F2B41 /* gameOver.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gameOver.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 		A47D25C22A792D4C00ECFD8D /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				A48EA4C62A7A2A40007F2B41 /* gameOver@2x.png */,
+				A48EA4C82A7A2A60007F2B41 /* gameOver.mp3 */,
 				A47D25C32A792D4C00ECFD8D /* sliceFuse.sks */,
 				A47D25C42A792D4C00ECFD8D /* sliceLife@2x.png */,
 				A47D25C52A792D4C00ECFD8D /* sliceBomb@2x.png */,
@@ -185,12 +191,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A48EA4C72A7A2A40007F2B41 /* gameOver@2x.png in Resources */,
 				A47D25E32A792D4C00ECFD8D /* swoosh2.caf in Resources */,
 				A47D25A92A790A2400ECFD8D /* Main.storyboard in Resources */,
 				A47D25E12A792D4C00ECFD8D /* penguin@2x.png in Resources */,
 				A47D25DB2A792D4C00ECFD8D /* launch.caf in Resources */,
 				A47D25E22A792D4C00ECFD8D /* swoosh3.caf in Resources */,
 				A47D25D82A792D4C00ECFD8D /* spark.png in Resources */,
+				A48EA4C92A7A2A60007F2B41 /* gameOver.mp3 in Resources */,
 				A47D25D52A792D4C00ECFD8D /* sliceLife@2x.png in Resources */,
 				A47D25DC2A792D4C00ECFD8D /* explosion.caf in Resources */,
 				A47D25D72A792D4C00ECFD8D /* sliceLifeGone@2x.png in Resources */,

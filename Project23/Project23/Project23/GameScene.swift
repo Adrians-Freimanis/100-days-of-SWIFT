@@ -15,7 +15,7 @@ enum ForceBomb {
 }
 
 enum SequenceType: CaseIterable {
-    case oneNoBomb, one, twoWithOneBomb, two, three, four, chain, fastChain
+    case oneNoBomb, one, twoWithOneBomb, two, three, four, chain, fastChain, fastEnemy
 }
 
 class GameScene: SKScene {
@@ -258,8 +258,10 @@ class GameScene: SKScene {
 
     func createEnemy(forceBomb: ForceBomb = .random) {
         var enemy: SKSpriteNode
+        
+        let maximumEnemyTypes = 6
 
-        var enemyType = Int.random(in: 0...6)
+        var enemyType = Int.random(in: 0...maximumEnemyTypes)
 
         if forceBomb == .never {
             enemyType = 1
@@ -302,11 +304,15 @@ class GameScene: SKScene {
         }
 
         // 1
-        let randomPosition = CGPoint(x: Int.random(in: 64...960), y: -128)
+        let minimumXPosition = 64
+        let maximumXPosition = 960
+        let randomPosition = CGPoint(x: Int.random(in: minimumXPosition...maximumXPosition), y: -128)
         enemy.position = randomPosition
 
         // 2
-        let randomAngularVelocity = CGFloat.random(in: -6...6) / 2.0
+        let maximumAngularVelocity: CGFloat = 6
+        let angularVelocityFactor: CGFloat = 0.5
+        let randomAngularVelocity = CGFloat.random(in: -maximumAngularVelocity...maximumAngularVelocity) * angularVelocityFactor
         var randomXVelocity = 0
 
         // 3
@@ -321,12 +327,33 @@ class GameScene: SKScene {
         }
 
         // 4
-        let randomYVelocity = Int.random(in: 24...32)
+        let yVelocityRange = 24...32
+        let randomYVelocity = Int.random(in: yVelocityRange)
 
         // 5
         enemy.physicsBody = SKPhysicsBody(circleOfRadius: 64)
         enemy.physicsBody?.velocity = CGVector(dx: randomXVelocity * 40, dy: randomYVelocity * 40)
         enemy.physicsBody?.angularVelocity = randomAngularVelocity
+        enemy.physicsBody?.collisionBitMask = 0
+
+        addChild(enemy)
+        activeEnemies.append(enemy)
+    }
+    
+    // Add this new method to create a fast-moving enemy
+    func createFastEnemy() {
+        let enemy = SKSpriteNode(imageNamed: "fastEnemy") // Replace "fastEnemy" with the image name of your new enemy
+        enemy.zPosition = 1
+        enemy.name = "enemy"
+
+        // Set the position of the fast-moving enemy off-screen at the top
+        let randomXPosition = Int.random(in: 64...960)
+        enemy.position = CGPoint(x: randomXPosition, y: 800)
+
+        let randomXVelocity = Int.random(in: -15...15)
+        let randomYVelocity = Int.random(in: 30...40)
+        enemy.physicsBody = SKPhysicsBody(circleOfRadius: 64)
+        enemy.physicsBody?.velocity = CGVector(dx: randomXVelocity * 40, dy: randomYVelocity * 40)
         enemy.physicsBody?.collisionBitMask = 0
 
         addChild(enemy)
@@ -438,11 +465,24 @@ class GameScene: SKScene {
             DispatchQueue.main.asyncAfter(deadline: .now() + (chainDelay / 10.0 * 2)) { [unowned self] in self.createEnemy() }
             DispatchQueue.main.asyncAfter(deadline: .now() + (chainDelay / 10.0 * 3)) { [unowned self] in self.createEnemy() }
             DispatchQueue.main.asyncAfter(deadline: .now() + (chainDelay / 10.0 * 4)) { [unowned self] in self.createEnemy() }
+            
+        case .fastEnemy:
+            createFastEnemy()
         }
+   
 
 
         sequencePosition += 1
         nextSequenceQueued = false
+    }
+    
+    func gameOver(){
+        let gameOver  = SKSpriteNode(imageNamed: "gameOver")
+        run(SKAction.playSoundFileNamed("gameOver.mp3", waitForCompletion:false))
+        gameOver.position = CGPoint(x: 512, y: 384)
+        gameOver.zPosition = 1
+        addChild(gameOver)
+        return
     }
 
     func subtractLife() {
@@ -459,6 +499,7 @@ class GameScene: SKScene {
         } else {
             life = livesImages[2]
             endGame(triggeredByBomb: false)
+            gameOver()
         }
 
         life.texture = SKTexture(imageNamed: "sliceLifeGone")
@@ -486,6 +527,8 @@ class GameScene: SKScene {
             livesImages[0].texture = SKTexture(imageNamed: "sliceLifeGone")
             livesImages[1].texture = SKTexture(imageNamed: "sliceLifeGone")
             livesImages[2].texture = SKTexture(imageNamed: "sliceLifeGone")
+            
+            gameOver()
         }
     }
 }
