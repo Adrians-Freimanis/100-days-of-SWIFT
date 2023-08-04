@@ -22,7 +22,10 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
 
         title = "Selfie Share"
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showConnectionPrompt))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(importPicture))
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(importPicture))
+        
+        let connectedDevicesButton = UIBarButtonItem(title: "Connected Devices", style: .plain, target: self, action: #selector(showConnectedDevices))
+            navigationItem.rightBarButtonItem = connectedDevicesButton
         
         collectionView.collectionViewLayout = CustomLayout()
         
@@ -34,11 +37,53 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
 
 
     @objc func importPicture() {
-        let picker = UIImagePickerController()
-        picker.allowsEditing = true
-        picker.delegate = self
-        present(picker, animated: true)
+//        let picker = UIImagePickerController()
+//        picker.allowsEditing = true
+//        picker.delegate = self
+//        present(picker, animated: true)
+        
+        
+        let ac = UIAlertController(title: "Send Message", message: "Enter your message:", preferredStyle: .alert)
+           ac.addTextField()
+
+           let sendAction = UIAlertAction(title: "Send", style: .default) { [weak self, weak ac] _ in
+               guard let message = ac?.textFields?[0].text else { return }
+               self?.sendMessage(message)
+           }
+
+           let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+
+           ac.addAction(sendAction)
+           ac.addAction(cancelAction)
+           present(ac, animated: true)
     }
+    
+    @objc func showConnectedDevices() {
+        let connectedDevices = mcSession.connectedPeers.map { $0.displayName }
+        
+        let message = connectedDevices.isEmpty ? "No devices connected." : connectedDevices.joined(separator: "\n")
+
+        let alert = UIAlertController(title: "Connected Devices", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true)
+    }
+
+    
+    
+    func sendMessage(_ message: String) {
+        if mcSession.connectedPeers.count > 0 {
+            if let data = message.data(using: .utf8) {
+                do {
+                    try mcSession.send(data, toPeers: mcSession.connectedPeers, with: .reliable)
+                } catch let error as NSError {
+                    let ac = UIAlertController(title: "Send error", message: error.localizedDescription, preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "OK", style: .default))
+                    present(ac, animated: true)
+                }
+            }
+        }
+    }
+
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
@@ -137,14 +182,30 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
         }
     }
 
-    @objc(session:didReceiveData:fromPeer:) func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        if let image = UIImage(data: data) {
-            DispatchQueue.main.async { [unowned self] in
-                self.images.insert(image, at: 0)
-                self.collectionView?.reloadData()
+//    @objc(session:didReceiveData:fromPeer:) func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+//        if let image = UIImage(data: data) {
+//            DispatchQueue.main.async { [unowned self] in
+//                self.images.insert(image, at: 0)
+//                self.collectionView?.reloadData()
+//            }
+//        }
+//    }
+    
+    @objc(session:didReceiveData:fromPeer:)
+    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+        if let message = String(data: data, encoding: .utf8) {
+            DispatchQueue.main.async { [weak self] in
+                // Display the received message using an alert or any other UI element
+                let alert = UIAlertController(title: "Message Received", message: message, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self?.present(alert, animated: true)
             }
+        } else {
+            print("Failed to decode received data into a UTF-8 string.")
         }
     }
+
+
 
     func sendImage(img: UIImage) {
         if mcSession.connectedPeers.count > 0 {
